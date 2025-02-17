@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul de Moyenne</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f8f9fa; text-align: center; }
+        h2 { color: #333; }
+        table { width: 80%; margin: 20px auto; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background-color: #007bff; color: white; }
+        td:first-child { font-weight: bold; font-size: 1.1em; color: #333; text-transform: capitalize; }
+        input { width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
+        #resultat { font-size: 1.8em; color: #007bff; margin-top: 20px; font-weight: bold; }
+        footer { font-size: 0.9em; color: #888; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <h2>Calcul de Moyenne</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Matière</th>
+                <th>TD</th>
+                <th>Exam</th>
+                <th>Moyenne</th>
+                <th>Coefficient</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <tr><td>Éthique et Déontologie</td><td>-</td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>1</td></tr>
+            <tr><td>Technique d'Expression Orale</td><td>-</td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>1</td></tr>
+            <tr><td>Traduction Arabe/Anglais/Arabe</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>2</td></tr>
+            <tr><td>Traduction Arabe/Français/Arabe</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>2</td></tr>
+            <tr><td>Interprétation Arabe/Anglais/Arabe</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>2</td></tr>
+            <tr><td>Interprétation Arabe/Français/Arabe</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>2</td></tr>
+            <tr><td>Traduction Consécutive</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>1</td></tr>
+            <tr><td>Introduction aux Sciences Politiques</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>2</td></tr>
+            <tr><td>Technique de Rédaction</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>2</td></tr>
+            <tr><td>Recherche Lexicologique et Terminologique</td><td><input type="number" oninput="calculerMoyenne()"></td><td><input type="number" oninput="calculerMoyenne()"></td><td class="moyenne"></td><td>2</td></tr>
+        </tbody>
+    </table>
+    <h3 id="resultat">Moyenne S5: 0.00</h3>
+
+    <script>
+        function calculerMoyenne() {
+            let table = document.getElementById("table-body");
+            let rows = table.getElementsByTagName("tr");
+            let total = 0, totalCoef = 0;
+            
+            for (let row of rows) {
+                let tdInput = row.cells[1].getElementsByTagName("input")[0];
+                let examInput = row.cells[2].getElementsByTagName("input")[0];
+                let coef = parseFloat(row.cells[4].innerText) || 1;
+                let moyenneCell = row.cells[3];
+                
+                let exam = examInput ? parseFloat(examInput.value) || 0 : 0;
+                let noteFinale;
+                
+                if (tdInput) {
+                    let td = parseFloat(tdInput.value) || 0;
+                    noteFinale = (td * 0.4) + (exam * 0.6);
+                } else {
+                    noteFinale = exam;
+                }
+                
+                moyenneCell.innerText = noteFinale.toFixed(2);
+                total += noteFinale * coef;
+                totalCoef += coef;
+            }
+            
+            let moyenne = totalCoef ? (total / totalCoef).toFixed(2) : 0;
+            document.getElementById("resultat").innerText = "Moyenne S5: " + moyenne;
+        }
+    </script>
+    
+    <footer>
+        <p>-   MOULAY  -</p>
+    </footer>
+</body>
+</html>
